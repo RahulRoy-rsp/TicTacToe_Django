@@ -45,7 +45,7 @@ That's it! You have successfully set up and run the Tic Tac Toe application. Enj
 
 ## Additional Resources
 
-Navigate to `tictatoe>tictactoe` directory where i have shared INFO.docx that will help you understand more clearly.
+Navigate to `tictatoe>tictactoe` directory where i have shared `INFO.docx` that will help you understand more clearly.
 
 Feel free to explore the document for further assistance and a visual representation of the application.
 
