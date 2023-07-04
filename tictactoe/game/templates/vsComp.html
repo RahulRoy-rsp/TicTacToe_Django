@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tic Tac Toe</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            border: 6px solid #ffffff;
+            margin: auto
+        }
+        td {
+            width: 70px;
+            height: 70px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 40px;
+            font-weight: bold;
+            border: 5px solid black;
+            cursor: pointer;
+        }
+        
+        td:hover {
+            background-color: #e6e6e6;
+        }
+
+        .center-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+          
+        .center-link {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+          
+        .top-left-link {
+            position: absolute;
+            top: 20px;
+            left: 15px;
+        }
+
+        .game-link {
+            font-size: 24px;
+            padding: 10px 20px;
+            border: 2px solid #000;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #000;
+            background-color: #fff;
+            transition: all 0.3s ease;
+        }
+          
+        .game-link:hover {
+            background-color: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="center-container">
+        <h1>Playing against the computer</h1>
+    </div>
+    <table>
+        <tr>
+            <td id="00" onclick="play(this)"></td>
+            <td id="01" onclick="play(this)"></td>
+            <td id="02" onclick="play(this)"></td>
+        </tr>
+        <tr>
+            <td id="10" onclick="play(this)"></td>
+            <td id="11" onclick="play(this)"></td>
+            <td id="12" onclick="play(this)"></td>
+        </tr>
+        <tr>
+            <td id="20" onclick="play(this)"></td>
+            <td id="21" onclick="play(this)"></td>
+            <td id="22" onclick="play(this)"></td>
+        </tr>
+    </table>
+
+    <div class="center-container">
+        <h2>Player: <span id="current-player">X</span>'s turn</h2>
+    </div>
+    
+    <script>
+        let currentPlayer = 'X';
+        let isAgainstComputer = true;
+        let currentTurn = 'Player';
+    
+        function play(cell) {
+            if (cell.innerText === '') {
+                cell.innerText = currentPlayer;
+                currentPlayer = (currentPlayer === 'X') ? 'O' : 'X';
+                document.getElementById("current-player").innerText = currentPlayer; // update current player's turn
+
+                checkWinner();
+                if (isAgainstComputer) {
+                    setTimeout(playComputer, 1000); // delay computer's turn by 1 sec
+                }
+            }
+        }
+    
+        function playComputer() {
+            let availableCells = getAvailableCells();
+            if (availableCells.length === 0) {
+                return;
+            }
+            let cell = availableCells[Math.floor(Math.random() * availableCells.length)];
+            cell.innerText = currentPlayer;
+            currentPlayer = (currentPlayer === 'X') ? 'O' : 'X';
+            document.getElementById("current-player").innerText = currentPlayer; // update current player's turn
+            checkWinner();
+        }
+    
+        function getAvailableCells() {
+            let cells = document.querySelectorAll('td');
+            let availableCells = [];
+            cells.forEach(cell => {
+                if (cell.innerText === '') {
+                    availableCells.push(cell);
+                }
+            });
+            return availableCells;
+        }
+    
+        function checkWinner() {
+            let cells = document.querySelectorAll('td');
+            let winner = null;
+            let playedCells = 0;
+    
+            // Check rows
+            for (let i = 0; i < 3; i++) {
+                if (cells[i*3].innerText !== '' && cells[i*3].innerText === cells[i*3+1].innerText && cells[i*3+1].innerText === cells[i*3+2].innerText) {
+                    winner = cells[i*3].innerText;
+                    break;
+                }
+            }
+    
+            // Check columns
+            for (let i = 0; i < 3; i++) {
+                if (cells[i].innerText !== '' && cells[i].innerText === cells[i+3].innerText && cells[i+3].innerText === cells[i+6].innerText) {
+                    winner = cells[i].innerText;
+                    break;
+                }
+            }
+    
+            // Check diagonals
+            if (cells[0].innerText !== '' && cells[0].innerText === cells[4].innerText && cells[4].innerText === cells[8].innerText) {
+                winner = cells[0].innerText;
+            }
+            if (cells[2].innerText !== '' && cells[2].innerText === cells[4].innerText && cells[4].innerText === cells[6].innerText) {
+                winner = cells[2].innerText;
+            }
+    
+            // Count the number of cells that have been played
+            cells.forEach(cell => {
+                if (cell.innerText !== '') {
+                    playedCells++;
+                }
+            });
+    
+            if (winner) {
+                if (isAgainstComputer) {
+                    if (winner === 'X') {
+                        alert('You wins!');
+                    } else {
+                        alert('Computer wins!');
+                    }
+                } else {
+                    alert('You ${winner} wins!');
+                }
+                cells.forEach(cell => cell.innerText = '');
+            } else if (playedCells === 9) {
+                alert('Game Tied!');
+                cells.forEach(cell => cell.innerText = '');
+            }
+        }
+    </script>
+
+    <br><br><br>
+    <div class="container">
+        <div class="center-link">
+          <a class="game-link" href="oneVsone.html">Want to play against your friend?</a>
+        </div>
+        <div class="top-left-link">
+          <a class="game-link" href="home.html">Home</a>
+        </div>
+    </div>
+
+</body>
+</html>
+    

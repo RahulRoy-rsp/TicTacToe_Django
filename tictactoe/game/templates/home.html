@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tic Tac Toe</title>
+    <style>
+        .center-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            font-family: Roboto; 
+            color: #12B0E8; 
+        }
+        
+        .center-container h1 {
+            font-size: 36px;
+        }
+        
+
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+          
+        .game-link {
+            font-size: 24px;
+            padding: 10px 20px;
+            border: 2px solid #000;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #000;
+            background-color: #fff;
+            transition: all 0.3s ease;
+        }
+          
+        .game-link:hover {
+            background-color: #000;
+            color: #fff;
+        }
+          
+    </style>
+</head>
+<body>
+    
+    <div class="center-container">
+        <h1>Tic Tac Toe: Major Project</h1>
+    </div>
+
+
+    <div class="links-container">
+        <a class="game-link" href="{% url 'vsComp' %}">Play against a computer</a>
+        <a class="game-link" href="{% url 'oneVsone' %}">Play against your friend</a>
+    </div>
+    
+</body>
+</html>
